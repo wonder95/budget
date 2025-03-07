@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-
-class SpendingCategoryController extends Controller
+class RegistersController extends Controller
 {
     public function index()
     {
-        return Inertia::render('SpendingCategories/Index');
+        return Inertia::render('Registers/Index');
     }
 }
