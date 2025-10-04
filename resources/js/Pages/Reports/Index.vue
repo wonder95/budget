@@ -1,11 +1,12 @@
 <script setup>
     import {Head, usePage, Link} from '@inertiajs/vue3';
+    import PageHeader from '@/Components/PageHeader.vue';
 
 </script>
 
 <template>
     <Head title="Reports"></Head>
 
-    <h1>Reports</h1>
+    <PageHeader title="Reports" />
 
 </template>

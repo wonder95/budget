@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('type', ['credit', 'debit'])->default('credit');
+            $table->enum('type', ['credit', 'deposit'])->default('deposit');
             $table->timestamps();
         });
     }

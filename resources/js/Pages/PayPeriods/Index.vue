@@ -5,8 +5,8 @@
 </script>
 
 <template>
-    <Head title="Registers"></Head>
+    <Head title="Pay Periods"></Head>
 
-    <PageHeader title="Registers" />
+    <PageHeader title="Pay Periods" />
 
 </template>

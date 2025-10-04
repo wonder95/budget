@@ -14,6 +14,11 @@ const props = defineProps({
         type: Boolean,
         default: true,
     },
+    action: {
+        type: String,
+        required: true,
+        default: 'create'
+    }
 });
 
 const emit = defineEmits(['close']);

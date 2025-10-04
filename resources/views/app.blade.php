@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head class="h-full bg-white">
+{{--    <head class="h-full bg-white">--}}
+    <head class="h-full bg-white dark:bg-gray-900">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
