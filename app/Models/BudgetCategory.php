@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BudgetCategory extends Model
 {
-    protected $filleble = [
+    protected $fillable = [
         'name'
     ];
 }
