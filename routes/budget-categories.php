@@ -11,6 +11,6 @@ Route::post('/budget-categories/create', [BudgetCategoryController::class, 'stor
     ->name('budget-categories.store')
     ->middleware(['auth']);
 
-Route::post('/budget-categories/update/{category}', [BudgetCategoryController::class, 'update'])
+Route::put('/budget-categories/update/{category}', [BudgetCategoryController::class, 'update'])
     ->name('budget-categories.update')
     ->middleware(['auth']);

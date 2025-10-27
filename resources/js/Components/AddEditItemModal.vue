@@ -8,7 +8,7 @@
         DialogRoot,
         DialogTitle,
     } from 'reka-ui'
-    import {ref, defineExpose} from 'vue';
+    import {computed, ref, defineExpose, watch} from 'vue';
 
     const props = defineProps({
        itemType: {
@@ -19,11 +19,21 @@
            type: String,
             required: true
         },
+        updateRoute: {
+            type: String,
+            required: true
+        },
         form: {
             type: Object, // useForm returns an object
             required: true
-        }
-    })
+        },
+        currentItem: {
+            type: Object,
+            default: null
+        },
+    });
+
+    const emit = defineEmits(['closed']);
 
     // Local reactive state for the dialog's open/closed status
     const isOpen = ref(false);
@@ -38,6 +48,10 @@
 
     const closeDialog = () => {
         isOpen.value = false;
+        // Reset form data and errors when closing
+        props.form.reset();
+        props.form.clearErrors();
+        emit('closed');
     };
 
     // Expose the openDialog method to the parent component
@@ -48,18 +62,47 @@
 
     // Add the item to the db
     function addItem() {
-        props.form.post(props.addRoute, {
+        // Use an options object for cleaner code
+        const submissionOptions = {
             preserveScroll: true,
             onSuccess: () => closeDialog(),
-            onError: () => {
-                // Keep the dialog open, errors will display via form.errors
-            },
-        })
+            onError: () => { /* keep dialog open */ }
+        };
+
+        if (isEditMode.value) {
+            // 🚨 CRUCIAL FIX: Ensure route() is called correctly AND returns a string
+            const updateUrl = route(props.updateRoute, props.currentItem.id).toString();
+
+            props.form.put(updateUrl, submissionOptions);
+        } else {
+            // The addRoute prop passed from the parent should be a string (now fixed in Index.vue)
+            props.form.post(props.addRoute, submissionOptions);
+        }
     }
+
+    //Editing
+    const isEditMode = computed(() => !!props.currentItem);
+
+    watch(() => props.currentItem, (newItem) => {
+        if (newItem) {
+            // Load data from the item into the form fields
+            props.form.name = newItem.name;
+            // You may need to update other form fields here: props.form.fieldX = newItem.fieldX
+        } else {
+            // Clear the form when switching to Add mode
+            props.form.reset();
+        }
+    }, { immediate: true });
 </script>
 
 <template>
-    <DialogRoot :open="isOpen" @update:open="isOpen = $event" v-slot="{ close }">
+    <DialogRoot
+        :open="isOpen"
+        @update:open="
+            isOpen = $event;
+            if (!isOpen) closeDialog(); /* 🚨 4. Handle close via ESC or backdrop click */
+        "
+    >
         <DialogPortal>
             <DialogOverlay
                 class="fixed inset-0 bg-black/50 z-50 transition-opacity duration-300"
@@ -77,7 +120,7 @@
         "
             >
                 <DialogTitle class="text-xl font-bold text-gray-900">
-                    Add New {{ itemType }}
+                    {{ isEditMode ? 'Edit' : 'Add New' }} {{ itemType }}
                 </DialogTitle>
                 <DialogDescription class="mt-2 text-sm text-gray-500">
                     Please enter the details for the new {{ itemType }}.
@@ -103,7 +146,7 @@
               hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
                         :disabled="props.form.processing"
                     >
-                        Add {{ itemType }}
+                        {{ isEditMode ? 'Save Changes' : `Add ${itemType}` }}
                     </button>
                 </div>
             </DialogContent>

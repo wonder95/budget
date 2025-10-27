@@ -1,13 +1,14 @@
 <script setup>
     import {Head, useForm} from '@inertiajs/vue3';
     import PageHeader from '@/Components/PageHeader.vue';
-    import AddItemModal from '@/Components/AddItemModal.vue';
+    import AddEditItemModal from '@/Components/AddEditItemModal.vue';
     import { computed, ref, onMounted } from 'vue';
 
     const props = defineProps({
         budgetCategories: Array,
     })
 
+    const currentItem = ref(null);
     const form = useForm({
         name: ''
     });
@@ -20,16 +21,39 @@
      * on the child component instance.
      */
     const handleOpenDialog = () => {
+        currentItem.value = null;
         // Ensure the ref is available before calling the method
         if (dialogRef.value) {
             dialogRef.value.openDialog();
         }
     };
 
+    const openEditItem = (categoryId) => {
+        // 1. Find the item in the local list
+        const categoryToEdit = props.budgetCategories.find(c => c.id === categoryId);
+
+        // 2. Set the state variable. This triggers the watcher in the modal.
+        currentItem.value = categoryToEdit;
+
+        // 3. Open the modal
+        if (dialogRef.value) {
+            dialogRef.value.openDialog();
+        }
+    };
+
+    const handleModalClose = () => {
+        // Reset the form in the parent
+        form.reset();
+        form.clearErrors();
+        // 🚨 Reset currentItem to ensure next open is 'Add' mode
+        currentItem.value = null;
+    };
+
     const addRouteUrl = computed(() => {
-        return route('budget-categories.store');
+        return route('budget-categories.store').toString();
     });
 
+    const updateRouteName = computed(() => 'budget-categories.update');
 </script>
 
 <template>
@@ -46,7 +70,7 @@
                     @click="handleOpenDialog"
                     type="button"
                     class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 hover:cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">
-                    Add category
+                    Add Budget Category
                 </button>
             </div>
         </div>
@@ -72,7 +96,7 @@
                                 {{ category.name }}
                             </td>
                             <td class="p-4 text-sm text-red-500">
-                                <button @click="openEditAccount(account.id)">Edit</button>
+                                <button @click="openEditItem(category.id)" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">Edit</button>
                             </td>
                         </tr>
                         </tbody>
@@ -80,21 +104,26 @@
                 </div>
             </div>
         </div>
-        <AddItemModal
+        <AddEditItemModal
             ref="dialogRef"
             item-type="Budget Category"
             :add-route="addRouteUrl"
+            :update-route="updateRouteName"
+            :current-item="currentItem"
             :form="form"
+            @closed="handleModalClose"
             v-slot="{ modalForm }"
         >
-
             <p class="mt-4 text-gray-700">
-                Name: <input type="text"
-                             v-model="form.name"
-                             class="border rounded px-2 py-1 w-full mt-2"
-                             placeholder="e.g., Groceries, Entertainment"/>
+                Name:
+                <input
+                    type="text"
+                    v-model="modalForm.name"
+                    class="border rounded px-2 py-1 w-full mt-2"
+                    placeholder="e.g., Groceries, Entertainment"
+                />
             </p>
             <div v-if="modalForm.errors.name" class="text-sm text-red-500 mt-1">{{ modalForm.errors.name }}</div>
-        </AddItemModal>
+        </AddEditItemModal>
     </div>
 </template>

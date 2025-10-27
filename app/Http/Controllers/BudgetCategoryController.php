@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateAccountRequest;
 use App\Http\Requests\CreateBudgetCategoryRequest;
 use App\Http\Resources\BudgetCategoryResource;
+use App\Models\Account;
 use App\Models\BudgetCategory;
 use Inertia\Inertia;
 class BudgetCategoryController extends Controller
@@ -24,5 +26,16 @@ class BudgetCategoryController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Budget Category ' . $budgetCategory->name . ' created');
+    }
+
+    public function update(CreateBudgetCategoryRequest $request, BudgetCategory $category)
+    {
+        $values = $request->validated();
+
+        $category->update([
+            'name' => $values['name'],
+        ]);
+
+        return redirect()->back()->with('success', 'Budget Category ' . $category->name . ' updated');
     }
 }
