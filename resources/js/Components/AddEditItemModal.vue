@@ -85,9 +85,16 @@
 
     watch(() => props.currentItem, (newItem) => {
         if (newItem) {
-            // Load data from the item into the form fields
-            props.form.name = newItem.name;
-            // You may need to update other form fields here: props.form.fieldX = newItem.fieldX
+            for (const key in props.form.data()) {
+                // Check if the newItem object has a corresponding key
+                if (Object.prototype.hasOwnProperty.call(newItem, key)) {
+                    // Update the form field with the value from the item
+                    props.form[key] = newItem[key];
+                } else {
+                    // Optional: If a field exists in the form but not in the item, clear it.
+                    props.form[key] = '';
+                }
+            }
         } else {
             // Clear the form when switching to Add mode
             props.form.reset();
@@ -123,7 +130,7 @@
                     {{ isEditMode ? 'Edit' : 'Add New' }} {{ itemType }}
                 </DialogTitle>
                 <DialogDescription class="mt-2 text-sm text-gray-500">
-                    Please enter the details for the new {{ itemType }}.
+                    Please enter the details for the {{ itemType }}.
                 </DialogDescription>
 
                 <slot :modalForm="props.form"></slot>
