@@ -3,6 +3,7 @@
     import PageHeader from '@/Components/PageHeader.vue';
     import AddEditItemModal from '@/Components/AddEditItemModal.vue';
     import { computed, ref, onMounted } from 'vue';
+    import { openToast } from '@/Composables/useToast';
 
     const props = defineProps({
         budgetCategories: Array,
@@ -47,6 +48,8 @@
         form.clearErrors();
         // 🚨 Reset currentItem to ensure next open is 'Add' mode
         currentItem.value = null;
+        // Open the toast
+        openToast('Success!', 'Item saved successfully.', 'success');
     };
 
     const addRouteUrl = computed(() => {
