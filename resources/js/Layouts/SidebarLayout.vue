@@ -1,5 +1,5 @@
 <script setup>
-    import {computed, ref} from 'vue'
+    import {computed, ref, watch} from 'vue'
     import {Dialog, DialogPanel, TransitionChild, TransitionRoot} from '@headlessui/vue'
     import {Link, usePage} from '@inertiajs/vue3'
     import {
@@ -18,6 +18,32 @@
     } from '@heroicons/vue/24/outline'
     import {ToastProvider, ToastViewport} from 'reka-ui';
     import ToastContainer from '@/Components/ToastContainer.vue';
+    import { openToast } from '@/Composables/useToast';
+
+    const page = usePage();
+
+    watch(() => page.props.flash, (newFlash) => {
+        // Check for success flash message
+        if (newFlash.success) {
+            openToast('Success!', newFlash.success, 'success');
+        }
+
+        // Check for error flash message
+        if (newFlash.error) {
+            // Use the action handler for a common error flow: "See Details"
+            openToast('Error!', newFlash.error, 'error', {
+                text: 'Details',
+                handler: () => {
+                    // You can add custom logic here, like redirecting to an error log page
+                    console.error("User clicked Details on flash error.");
+                }
+            });
+        }
+    }, {
+        // Ensure the watch runs immediately on the first page load
+        // (in case a flash message was set on initial load)
+        immediate: true
+    });
 
     const navigation = [
         {name: 'Dashboard', href: '/dashboard', icon: HomeIcon, current: true},
@@ -34,8 +60,7 @@
         {id: 3, name: 'Workcation', href: '#', initial: 'W', current: false},
     ]
 
-    const page = usePage();
-    const sidebarOpen = ref(false);
+   const sidebarOpen = ref(false);
 
     const mappedNavigation = computed(() => {
         const currentUrl = page.url // e.g., '/accounts/123'

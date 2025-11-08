@@ -48,8 +48,6 @@
         form.clearErrors();
         // 🚨 Reset currentItem to ensure next open is 'Add' mode
         currentItem.value = null;
-        // Open the toast
-        openToast('Success!', 'Item saved successfully.', 'success');
     };
 
     const addRouteUrl = computed(() => {
