@@ -24,7 +24,7 @@ class CreateBudgetCategoryRequest extends FormRequest
         return [
             'name' => 'required|string|max:50',
             'slug' => 'required|string|max:50',
-            'description' => 'required|string|max:100'
+            'description' => 'nullable|string|max:100'
         ];
     }
 }

@@ -6,7 +6,6 @@ use Aliziodev\LaravelTaxonomy\Facades\Taxonomy;
 use App\Enums\CategoryType;
 use App\Http\Requests\CreateBudgetCategoryRequest;
 use App\Http\Resources\BudgetCategoryResource;
-use App\Models\BudgetCategory;
 use Aliziodev\LaravelTaxonomy\Models\Taxonomy as TaxonomyModel;
 use Inertia\Inertia;
 class BudgetCategoryController extends Controller
@@ -38,6 +37,8 @@ class BudgetCategoryController extends Controller
 
         $category->update([
             'name' => $values['name'],
+            'slug' => $values['slug'],
+            'description' => $values['description'],
         ]);
 
         return redirect()->back()->with('success', 'Budget Category ' . $category->name . ' updated');
