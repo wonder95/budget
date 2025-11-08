@@ -70,12 +70,10 @@
         };
 
         if (isEditMode.value) {
-            // 🚨 CRUCIAL FIX: Ensure route() is called correctly AND returns a string
             const updateUrl = route(props.updateRoute, props.currentItem.id).toString();
 
             props.form.put(updateUrl, submissionOptions);
         } else {
-            // The addRoute prop passed from the parent should be a string (now fixed in Index.vue)
             props.form.post(props.addRoute, submissionOptions);
         }
     }

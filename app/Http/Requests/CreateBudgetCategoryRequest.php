@@ -22,7 +22,9 @@ class CreateBudgetCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:50'
+            'name' => 'required|string|max:50',
+            'slug' => 'required|string|max:50',
+            'description' => 'required|string|max:100'
         ];
     }
 }

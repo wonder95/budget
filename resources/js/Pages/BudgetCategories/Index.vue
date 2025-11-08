@@ -3,7 +3,6 @@
     import PageHeader from '@/Components/PageHeader.vue';
     import AddEditItemModal from '@/Components/AddEditItemModal.vue';
     import { computed, ref, onMounted } from 'vue';
-    import { openToast } from '@/Composables/useToast';
 
     const props = defineProps({
         budgetCategories: Array,
@@ -11,7 +10,9 @@
 
     const currentItem = ref(null);
     const form = useForm({
-        name: ''
+        name: '',
+        slug: '',
+        description: ''
     });
 
     // Create a template ref to link to the MyDialog component instance
@@ -86,6 +87,10 @@
                                 Name
                             </th>
                             <th scope="col"
+                                class="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-3 dark:text-white">
+                                Slug
+                            </th>
+                            <th scope="col"
                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Action
                             </th>
                         </tr>
@@ -95,6 +100,9 @@
                             class="even:bg-gray-50 dark:even:bg-gray-800/50">
                             <td class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-3 dark:text-white">
                                 {{ category.name }}
+                            </td>
+                            <td class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-3 dark:text-white">
+                                {{ category.slug }}
                             </td>
                             <td class="p-4 text-sm text-red-500">
                                 <button @click="openEditItem(category.id)" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">Edit</button>
@@ -115,16 +123,29 @@
             @closed="handleModalClose"
             v-slot="{ modalForm }"
         >
-            <p class="mt-4 text-gray-700">
+            <p class="mt-4 text-gray-700 font-semibold">
                 Name:
                 <input
                     type="text"
                     v-model="modalForm.name"
-                    class="border rounded px-2 py-1 w-full mt-2"
+                    class="border rounded px-2 py-1 w-full mt-2 font-semibold"
                     placeholder="e.g., Groceries, Entertainment"
                 />
             </p>
             <div v-if="modalForm.errors.name" class="text-sm text-red-500 mt-1">{{ modalForm.errors.name }}</div>
+
+            <div class="mt-2">
+                <label class="font-semibold" for="slug">Slug:</label>
+                <input type="text" id="slug" v-model="modalForm.slug" class="border rounded px-2 py-1 w-full mt-2" />
+            </div>
+            <div v-if="modalForm.errors.slug" class="text-sm text-red-500 mt-1">{{ modalForm.errors.slug }}</div>
+
+            <div class="mt-2">
+                <label class="font-semibold" for="slug">Description:</label>
+                <input type="text" id="description" v-model="modalForm.description" class="border rounded px-2 py-1 w-full mt-2" />
+            </div>
+            <div v-if="modalForm.errors.description" class="text-sm text-red-500 mt-1">{{ modalForm.errors.description }}</div>
+
         </AddEditItemModal>
     </div>
 </template>
