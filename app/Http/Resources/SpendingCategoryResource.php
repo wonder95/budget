@@ -16,7 +16,11 @@ class SpendingCategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'description' => $this->description,
+            'parent_id' => $this->parent_id,
+            'depth' => $this->depth
         ];
     }
 }
