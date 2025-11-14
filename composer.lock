@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aliziodev/laravel-taxonomy",
-            "version": "v2.6.1",
+            "version": "v2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aliziodev/laravel-taxonomy.git",
-                "reference": "f4c10477f59876420597692b66be21aa7245e626"
+                "reference": "97f80c7e61e4b973c09132feef5b944cf0c696cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aliziodev/laravel-taxonomy/zipball/f4c10477f59876420597692b66be21aa7245e626",
-                "reference": "f4c10477f59876420597692b66be21aa7245e626",
+                "url": "https://api.github.com/repos/aliziodev/laravel-taxonomy/zipball/97f80c7e61e4b973c09132feef5b944cf0c696cf",
+                "reference": "97f80c7e61e4b973c09132feef5b944cf0c696cf",
                 "shasum": ""
             },
             "require": {
@@ -77,7 +77,7 @@
             ],
             "support": {
                 "issues": "https://github.com/aliziodev/laravel-taxonomy/issues",
-                "source": "https://github.com/aliziodev/laravel-taxonomy/tree/v2.6.1"
+                "source": "https://github.com/aliziodev/laravel-taxonomy/tree/v2.7.0"
             },
             "funding": [
                 {
@@ -85,7 +85,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-10-10T19:33:03+00:00"
+            "time": "2025-11-14T19:27:24+00:00"
         },
         {
             "name": "brick/math",
