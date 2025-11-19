@@ -50,7 +50,7 @@
 
             // --- CORE FIX: Define the label based on location ---
 
-            if (location === 'select') {
+            // if (location === 'select') {
                 let label = category.name;
 
                 // 1. Calculate the prefix for visual hierarchy
@@ -63,7 +63,7 @@
                 // Add keys required by the Reka-UI Select component
                 item.label = label;
                 item.value = category.id;
-            }
+            // }
 
             // 2. Push the item to the final array for both 'select' and 'table'
             optionsArray.push(item);
@@ -181,7 +181,7 @@
                         <tr v-for="category in getFlattenedCategories('table')" :key="category.id"
                             class="even:bg-gray-50 dark:even:bg-gray-800/50">
                             <td class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-3 dark:text-white">
-                                {{ category.name }}
+                                {{ category.label }}
                             </td>
                             <td class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-3 dark:text-white">
                                 {{ category.slug }}
@@ -268,8 +268,13 @@
                 </SelectRoot>
             </div>
             <div v-if="modalForm.errors.parent_id" class="text-sm text-red-500 mt-1">{{ modalForm.errors.parent_id }}</div>
-
-
         </AddEditItemModal>
+
+
+
+
+
+
+
     </div>
 </template>

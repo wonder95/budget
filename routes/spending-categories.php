@@ -14,3 +14,7 @@ Route::post('/spending-categories/create', [SpendingCategoryController::class, '
 Route::put('/spending-categories/update/{category}', [SpendingCategoryController::class, 'update'])
     ->name('spending-categories.update')
     ->middleware(['auth']);
+
+Route::get('/spending-categories/{category:slug}', [SpendingCategoryController::class, 'show'])
+    ->name('spending-categories.show')
+    ->middleware(['auth']);

@@ -6,6 +6,7 @@ use Aliziodev\LaravelTaxonomy\Models\Taxonomy;
 use App\Enums\CategoryType;
 use App\Http\Requests\CreateSpendingCategoryRequest;
 use App\Http\Resources\SpendingCategoryResource;
+use App\Models\SpendingCategory;
 use Inertia\Inertia;
 use Aliziodev\LaravelTaxonomy\Facades\Taxonomy as TaxonomyFacade;
 
@@ -13,12 +14,10 @@ class SpendingCategoryController extends Controller
 {
     public function index()
     {
+        $tree = TaxonomyFacade::tree(CategoryType::Spending->value);
 
-       $categories = TaxonomyFacade::flatTree(CategoryType::Spending->value);
-
-        return Inertia::render('SpendingCategories/Index', [
-//            'spendingCategories' => SpendingCategoryResource::collection(TaxonomyFacade::findByType('spending'))
-            'spendingCategories' => $categories
+        return Inertia::render('SpendingCategories/SpendingCategoryIndex', [
+            'spendingCategories' => TaxonomyFacade::tree(CategoryType::Spending->value)
         ]);
     }
 
@@ -49,5 +48,12 @@ class SpendingCategoryController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Spending Category ' . $category->name . ' updated');
+    }
+
+    public function show(Taxonomy $category)
+    {
+        return Inertia::render('SpendingCategories/Show', [
+            'category' => $category,
+        ]);
     }
 }
