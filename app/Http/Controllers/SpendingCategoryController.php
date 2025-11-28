@@ -14,8 +14,6 @@ class SpendingCategoryController extends Controller
 {
     public function index()
     {
-        $tree = TaxonomyFacade::tree(CategoryType::Spending->value);
-
         return Inertia::render('SpendingCategories/SpendingCategoryIndex', [
             'spendingCategories' => TaxonomyFacade::tree(CategoryType::Spending->value)
         ]);
