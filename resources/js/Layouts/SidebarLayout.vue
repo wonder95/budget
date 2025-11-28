@@ -4,16 +4,14 @@
     import {Link, usePage} from '@inertiajs/vue3'
     import {
         Bars3Icon,
+        BuildingStorefrontIcon,
         CalendarDateRangeIcon,
         ChartPieIcon,
-        DocumentDuplicateIcon,
         FolderIcon,
         HomeIcon,
         UsersIcon,
         XMarkIcon,
         ChevronDoubleLeftIcon,
-        PrinterIcon,
-        TableCellsIcon,
         CurrencyDollarIcon
     } from '@heroicons/vue/24/outline'
     import {ToastProvider, ToastViewport} from 'reka-ui';
@@ -53,6 +51,7 @@
         {name: 'Pay Periods', href: '/pay-periods', icon: CalendarDateRangeIcon, current: false},
         {name: 'Reports', href: '/reports', icon: ChartPieIcon, current: false},
         {name: 'Transfers', href: '/transfers', icon: ChevronDoubleLeftIcon, current: false},
+        {name: 'Vendors', href: '/vendors', icon: BuildingStorefrontIcon, current: false},
     ]
     const teams = [
         {id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false},

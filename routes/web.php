@@ -26,3 +26,4 @@ require __DIR__.'/pay-periods.php';
 require __DIR__.'/registers.php';
 require __DIR__.'/reports.php';
 require __DIR__.'/transfers.php';
+require __DIR__.'/vendors.php';
