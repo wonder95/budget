@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Relationships\MorphManyManySplitsSplittableTrait;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transaction extends Model
 {
@@ -15,17 +16,12 @@ class Transaction extends Model
         'type'
     ];
 
-    public function account()
+    public function account(): BelongsTo
     {
         return $this->belongsTo(Account::class);
     }
-    public function trnsaction()
+    public function pay_period(): BelongsTo
     {
-        return $this->belongsTo(Transaction::class);
-    }
-
-    public function budgetCategory()
-    {
-        return $this->belongsTo(BudgetCategory::class);
+        return $this->belongsTo(PayPeriod::class);
     }
 }
