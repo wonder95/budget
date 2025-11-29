@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('paychecks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pay_period_id')
+                ->constrained('pay_periods')
+                ->onDelete('cascade');
             $table->date('date');
             $table->decimal('amount', 10, 2)->unsigned();
             $table->timestamps();

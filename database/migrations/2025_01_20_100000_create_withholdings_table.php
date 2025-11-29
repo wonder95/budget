@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('withholdings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('paycheck_id')
+                ->constrained('paychecks')
+                ->onDelete('cascade');
             $table->string('name');
             $table->enum('type', ['tax', 'benefit']);
             $table->timestamps();
