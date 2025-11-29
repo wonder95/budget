@@ -1,5 +1,5 @@
 <script setup>
-    import {Head, useForm} from '@inertiajs/vue3';
+    import {Head, Link, useForm} from '@inertiajs/vue3';
     import PageHeader from '@/Components/PageHeader.vue';
     import Modal from '@/Components/Modal.vue';
     import {computed, ref} from 'vue';
@@ -60,7 +60,7 @@
     }
 
     function addUpdateAccount() {
-        const url = props.action === 'create' ? '/accounts/create' : `/accounts/update/${editAccount.value.id}`;
+        const url = action.value === 'create' ? '/accounts/create' : `/accounts/update/${editAccount.value.id}`;
 
         form.post(url, {
             preserveScroll: true,
@@ -103,6 +103,9 @@
                             <th scope="col"
                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Action
                             </th>
+                            <th scope="col"
+                                class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">
+                            </th>
                         </tr>
                         </thead>
                         <tbody class="bg-white dark:bg-gray-900">
@@ -116,6 +119,9 @@
                             </td>
                             <td class="p-4 text-sm text-red-500">
                                 <button @click="openEditAccount(account.id)">Edit</button>
+                            </td>
+                            <td class="p-4 text-sm text-red-500">
+                                <Link :href="`/accounts/${account.slug}/register`">Register</Link>
                             </td>
                         </tr>
                         </tbody>

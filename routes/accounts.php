@@ -14,3 +14,7 @@ Route::post('/accounts/create', [AccountController::class, 'store'])
 Route::post('/accounts/update/{account}', [AccountController::class, 'update'])
     ->name('accounts.update')
     ->middleware(['auth']);
+
+Route::get('/accounts/{account:slug}/register', [AccountController::class, 'register'])
+    ->name('accounts.register')
+    ->middleware(['auth']);

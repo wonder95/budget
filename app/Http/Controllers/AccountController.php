@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AccountResource;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Requests\CreateAccountRequest;
+use Illuminate\Support\Str;
 
 class AccountController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Accounts/Index', [
-            'accounts' => Account::all()
+        return Inertia::render('Accounts/AccountIndex', [
+            'accounts' => AccountResource::collection(Account::all())
         ]);
     }
 
@@ -22,6 +24,7 @@ class AccountController extends Controller
 
         $account = Account::create([
             'name' => $values['name'],
+            'slug' => Str::slug($values['name']),
             'type' => $values['type'],
         ]);
 
@@ -36,5 +39,13 @@ class AccountController extends Controller
         $account->update([
             'name' => $values['name'],
         ]);
+    }
+
+    public function register(Account $account)
+    {
+        return Inertia::render('Accounts/RegisterIndex', [
+            'account' => $account
+        ]);
+
     }
 }
