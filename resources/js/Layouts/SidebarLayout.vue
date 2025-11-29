@@ -4,6 +4,7 @@
     import {Link, usePage} from '@inertiajs/vue3'
     import {
         Bars3Icon,
+        BuildingOfficeIcon,
         BuildingStorefrontIcon,
         CalendarDateRangeIcon,
         ChartPieIcon,
@@ -51,6 +52,7 @@
         {name: 'Pay Periods', href: '/pay-periods', icon: CalendarDateRangeIcon, current: false},
         {name: 'Reports', href: '/reports', icon: ChartPieIcon, current: false},
         {name: 'Transfers', href: '/transfers', icon: ChevronDoubleLeftIcon, current: false},
+        {name: 'Employers', href: '/employers', icon: BuildingOfficeIcon, current: false},
         {name: 'Vendors', href: '/vendors', icon: BuildingStorefrontIcon, current: false},
     ]
     const teams = [

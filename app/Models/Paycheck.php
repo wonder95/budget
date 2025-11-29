@@ -24,18 +24,13 @@ class Paycheck extends Model
         return $this->hasMany(Withholding::class);
     }
 
-    public function vendor(): HasOne
+    public function employer(): BelongsTo
     {
-        return $this->hasOne(Vendor::class);
+        return $this->belongsTo(Employer::class);
     }
 
     public function payPeriod(): BelongsTo
     {
         return $this->belongsTo(PayPeriod::class);
-    }
-
-    public function budgetCategories(): HasMany
-    {
-        return $this->hasMany(BudgetCategory::class);
     }
 }

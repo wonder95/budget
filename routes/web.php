@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 require __DIR__.'/accounts.php';
 require __DIR__.'/budget-categories.php';
+require __DIR__.'/employers.php';
 require __DIR__.'/spending-categories.php';
 require __DIR__.'/pay-periods.php';
 require __DIR__.'/registers.php';

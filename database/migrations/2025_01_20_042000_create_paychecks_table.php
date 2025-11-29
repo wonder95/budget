@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('pay_period_id')
                 ->constrained('pay_periods')
                 ->onDelete('cascade');
+            $table->foreignId('employer_id')
+                ->constrained('employers')
+                ->onDelete('cascade');
             $table->date('date');
             $table->decimal('amount', 10, 2)->unsigned();
             $table->timestamps();
