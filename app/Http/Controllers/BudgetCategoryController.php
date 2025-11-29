@@ -8,6 +8,7 @@ use App\Http\Requests\CreateBudgetCategoryRequest;
 use App\Http\Resources\BudgetCategoryResource;
 use Aliziodev\LaravelTaxonomy\Models\Taxonomy as TaxonomyModel;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 class BudgetCategoryController extends Controller
 {
     public function index()
@@ -23,7 +24,7 @@ class BudgetCategoryController extends Controller
 
         $budgetCategory = Taxonomy::create([
             'name' => $values['name'],
-            'slug' => $values['slug'],
+            'slug' => Str::slug($values['name']),
             'description' => $values['description'],
             'type' => CategoryType::Budget->value,
         ]);
@@ -37,7 +38,7 @@ class BudgetCategoryController extends Controller
 
         $category->update([
             'name' => $values['name'],
-            'slug' => $values['slug'],
+            'slug' => Str::slug($values['name']),
             'description' => $values['description'],
         ]);
 

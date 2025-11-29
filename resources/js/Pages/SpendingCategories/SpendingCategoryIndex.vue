@@ -26,7 +26,6 @@
     const currentItem = ref(null);
     const form = useForm({
         name: '',
-        slug: '',
         description: '',
         parent_id: '',
     });
@@ -223,12 +222,6 @@
                 />
             </p>
             <div v-if="modalForm.errors.name" class="text-sm text-red-500 mt-1">{{ modalForm.errors.name }}</div>
-
-            <div class="mt-2">
-                <label class="font-semibold" for="slug">Slug:</label>
-                <input type="text" id="slug" v-model="modalForm.slug" class="border rounded px-2 py-1 w-full mt-2" />
-            </div>
-            <div v-if="modalForm.errors.slug" class="text-sm text-red-500 mt-1">{{ modalForm.errors.slug }}</div>
 
             <div class="mt-2">
                 <label class="font-semibold" for="slug">Description:</label>

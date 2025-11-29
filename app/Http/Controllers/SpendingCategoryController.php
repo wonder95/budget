@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Aliziodev\LaravelTaxonomy\Models\Taxonomy;
 use App\Enums\CategoryType;
 use App\Http\Requests\CreateSpendingCategoryRequest;
-use App\Http\Resources\SpendingCategoryResource;
-use App\Models\SpendingCategory;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Aliziodev\LaravelTaxonomy\Facades\Taxonomy as TaxonomyFacade;
 
@@ -25,7 +24,7 @@ class SpendingCategoryController extends Controller
 
         $spendingCategory = Taxonomy::create([
             'name' => $values['name'],
-            'slug' => $values['slug'],
+            'slug' => Str::slug( $values['name'], '-'),
             'description' => $values['description'],
             'type' => CategoryType::Spending->value,
             'parent_id' => $values['parent_id'] ?? null,
@@ -41,7 +40,7 @@ class SpendingCategoryController extends Controller
 
         $category->update([
             'name' => $values['name'],
-            'slug' => $values['slug'],
+            'slug' => Str::slug( $values['name'], '-'),
             'description' => $values['description'],
         ]);
 
