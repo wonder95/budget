@@ -12,4 +12,8 @@ class Withholding extends Model
     protected $fillable = [
         'amount'
     ];
+    public function paycheck()
+    {
+        return $this->belongsTo(Paycheck::class);
+    }
 }
