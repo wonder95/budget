@@ -160,7 +160,7 @@
         </div>
         <TreeRoot
             v-slot="{ flattenItems }"
-            class="list-none select-none w-56 bg-white text-stone-700 rounded-lg shadow-sm p-2 text-sm font-medium mt-4"
+            class="list-none select-none bg-white text-stone-700 rounded-lg shadow-sm p-2 text-sm font-medium mt-4 w-full"
             :items="spendingCategories"
             :get-key="(item) => item.id"
             :get-children="(item) => item.children || []"
