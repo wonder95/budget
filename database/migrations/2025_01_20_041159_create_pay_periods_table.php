@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('start_date');
             $table->date('end_date');
+            $table->decimal('starting_balance', 8, 2)->nullable();
             $table->timestamps();
         });
     }

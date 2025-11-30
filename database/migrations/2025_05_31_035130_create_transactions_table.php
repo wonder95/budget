@@ -16,11 +16,13 @@ return new class extends Migration
             $table->foreignId('account_id')
                 ->constrained('accounts')
                 ->onDelete('cascade');
-            $table->foreignId('transaction_id')
-                ->constrained('transactions')
+            $table->foreignId('pay_period')
+                ->constrained('pay_periods')
                 ->onDelete('cascade');
             $table->date('date');
             $table->decimal('amount', 10, 2);
+            $table->enum('type', ['credit', 'deposit'])->default('deposit');
+            $table->text('description');
             $table->timestamps();
         });
     }

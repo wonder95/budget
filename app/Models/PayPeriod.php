@@ -9,7 +9,8 @@ class PayPeriod extends Model
 {
     protected $fillable = [
         'start_date',
-        'end_date'
+        'end_date',
+        'starting_balance'
     ];
 
     public function paychecks(): HasMany
