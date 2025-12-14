@@ -22,6 +22,7 @@
         "@headlessui/vue": "^1.7.23",
         "@heroicons/vue": "^2.2.0",
         "dayjs": "^1.11.18",
-        "reka-ui": "^2.5.1"
+        "reka-ui": "^2.5.1",
+        "uuid": "^13.0.0"
     }
 }
