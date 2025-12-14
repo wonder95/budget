@@ -17,7 +17,8 @@ class PayPeriodResource extends JsonResource
         return [
             'id' => $this->id,
             'start_date' => $this->start_date,
-            'end_date' => $this->end_date
+            'end_date' => $this->end_date,
+            'starting_balance' => $this->starting_balance
         ];
     }
 }

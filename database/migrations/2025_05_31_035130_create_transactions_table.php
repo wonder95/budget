@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('account_id')
                 ->constrained('accounts')
                 ->onDelete('cascade');
-            $table->foreignId('pay_period')
+            $table->foreignId('pay_period_id')
                 ->constrained('pay_periods')
                 ->onDelete('cascade');
             $table->date('date');

@@ -23,7 +23,8 @@ class CreatePayPeriodRequest extends FormRequest
     {
         return [
             'start_date' => 'required|date_format:Y-m-d',
-            'end_date' => 'required|date_format:Y-m-d'
+            'end_date' => 'required|date_format:Y-m-d',
+            'starting_balance' => 'nullable|decimal:2|min:0'
         ];
     }
 }

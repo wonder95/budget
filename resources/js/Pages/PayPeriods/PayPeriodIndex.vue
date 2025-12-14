@@ -1,5 +1,5 @@
 <script setup>
-    import {Head, useForm} from '@inertiajs/vue3';
+    import {Head, Link, useForm} from '@inertiajs/vue3';
     import PageHeader from '@/Components/PageHeader.vue';
     import AddEditItemModal from '@/Components/AddEditItemModal.vue';
     import {computed, ref, onMounted} from 'vue';
@@ -12,7 +12,8 @@
     const currentItem = ref(null);
     const form = useForm({
         start_date: '',
-        end_date: ''
+        end_date: '',
+        starting_balance: 0
     });
 
     // Create a template ref to link to the MyDialog component instance
@@ -91,7 +92,14 @@
                                 End Date
                             </th>
                             <th scope="col"
+                                class="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-3 dark:text-white">
+                                Starting Balance
+                            </th>
+                            <th scope="col"
                                 class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Action
+                            </th>
+                            <th scope="col"
+                                class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Transactions
                             </th>
                         </tr>
                         </thead>
@@ -104,11 +112,19 @@
                             <td class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-3 dark:text-white">
                                 {{ dayjs(payPeriod.end_date).format("MMM D, YYYY") }}
                             </td>
+                            <td class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-3 dark:text-white">
+                                {{ payPeriod.starting_balance }}
+                            </td>
                             <td class="p-4 text-sm text-red-500">
                                 <button @click="openEditItem(payPeriod.id)"
                                         class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">
                                     Edit
                                 </button>
+                            </td>
+                            <td>
+                                <Link :href="`/pay-periods/transactions/${payPeriod.start_date}`"
+                                      class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
+                                >View</Link>
                             </td>
                         </tr>
                         </tbody>
@@ -128,24 +144,34 @@
         >
             <div class="flex space-x-4">
                 <div class="mt-4 text-gray-700">
-                    Start Date:
+                    <label for="start_date">Start Date:</label>
                     <input
                         type="date"
+                        id="start_date"
                         v-model="modalForm.start_date"
                         class="border rounded px-2 py-1 w-full mt-2"
                         placeholder="e.g., 2025-01-01"
                     />
                     <div v-if="modalForm.errors.start_date" class="text-sm text-red-500 mt-1">{{ modalForm.errors.start_date }}</div>                </div>
                 <div class="mt-4 text-gray-700">
-                    End Date:
+                    <label for="end_date">End Date:</label>
                     <input
                         type="date"
+                        id="end-date"
                         v-model="modalForm.end_date"
                         class="border rounded px-2 py-1 w-full mt-2"
                         placeholder="e.g., 2025-01-01"
                     />
                     <div v-if="modalForm.errors.end_date" class="text-sm text-red-500 mt-1">{{ modalForm.errors.end_date }}</div>
                 </div>
+            </div>
+            <div class="mt-4">
+                <label for="starting-balance">Starting Balance:</label>
+                <input type="number"
+                     v-model.number="modalForm.starting_balance"
+                     class="border rounded px-2 py-1 w-full mt-2"
+                />
+                <div v-if="modalForm.errors.starting_balance" class="text-sm text-red-500 mt-1">{{ modalForm.errors.starting_balance }}</div>
             </div>
 
         </AddEditItemModal>

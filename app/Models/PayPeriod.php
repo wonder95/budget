@@ -22,4 +22,9 @@ class PayPeriod extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function paycheck()
+    {
+        return $this->hasMany(Paycheck::class);
+    }
 }
